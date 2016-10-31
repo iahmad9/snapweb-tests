@@ -8,9 +8,10 @@ Before running the snapweb automated tests, following should be ready
 
 ##How to run the tests:
 
-cd to tests directory under snapweb
-$ cd tests/
-$ ./run-tests.sh <User> <IP> <Port>
+'''shell
+cd tests/
+./run-tests.sh User IP Port
+''''
 
 Where 
 
