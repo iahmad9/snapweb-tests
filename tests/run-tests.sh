@@ -34,6 +34,11 @@ token=$(ssh -p $3 $1@$2 'bash -s' < ./get-token.sh)
 #echo $token
 
 echo 'Run selenium tests for snapweb service on given IP'
-TOKEN=$token ../node_modules/.bin/wdio -b https://$2:4201
+modules_dir="./node_modules"
+if [ ! -d "$modules_dir" ]; then
+  modules_dir="../node_modules"
+fi
+
+TOKEN=$token $modules_dir/.bin/wdio -b https://$2:4201
 
 kill -9  $pid

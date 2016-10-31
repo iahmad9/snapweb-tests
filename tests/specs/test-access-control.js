@@ -1,16 +1,3 @@
-/*var exec  = require('child_process').execFile
-
-var process = exec('./run-tests.sh', function(error, stdout, stderr) {
-	console.log(stdout);
-  //cwd: process.env.HOME + '/work/snapweb-test/',
-  //env: Object.assign({}, process.env, { PATH: process.env.PATH + ':/usr/local/bin' })
-});
-
-process.kill();
-*/
-
-
-
 var assert = require('chai').assert;
 var expect = require('chai').expect;
 
@@ -24,6 +11,14 @@ describe('Verify Access Control page', function() {
 
     afterEach(function () {
 	});
+
+    function verify_invalid_token(token_value)  {
+ 
+        accessControlPage.token.setValue(token_value);
+        accessControlPage.submit();
+        expect(accessControlPage.login_failed.getText()).to.contain('Invalid');
+	
+	};
  
     it('loads correctly', function () {
 
@@ -39,13 +34,16 @@ describe('Verify Access Control page', function() {
 	
     });
 
-    it('rejects invalid token', function () {
+    it('rejects invalid tokens', function () {
 
-	accessControlPage.token.setValue("hello");
-	accessControlPage.submit();
-	expect(accessControlPage.login_failed.getText()).to.contain('Invalid');
+	var tokens = ['','a',"'", '#', Array(1024).join('x')];
+
+	tokens.forEach(function(token){
+		verify_invalid_token(token);
+	});
 	
     });
+
 
     it('accepts valid token', function () {
 
