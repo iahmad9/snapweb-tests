@@ -10,14 +10,14 @@ Before running the snapweb automated tests, following should be ready
 
 ```shell
 cd tests/
-./run-tests.sh User IP Port
+./run-tests.sh <user> <ip> <port>
 ```
 
 Where 
 
-User = User on DUT with ssh keys configured
-IP = IP address of DUT
-Port = SSH port of DUT
+user = User on DUT with ssh keys configured
+ip = IP address of DUT
+port = SSH port of DUT
 
 After test run finishes, xunit report will be generated unders ./results/ directory
 If error occurs, screen shots can be found under ./errorShots/ folder
