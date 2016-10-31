@@ -16,8 +16,11 @@ cd tests/
 Where 
 
 user = User on DUT with ssh keys configured
+
 ip = IP address of DUT
+
 port = SSH port of DUT
 
 After test run finishes, xunit report will be generated unders ./results/ directory
+
 If error occurs, screen shots can be found under ./errorShots/ folder
