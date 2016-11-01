@@ -45,7 +45,11 @@ exports.config = {
         maxInstances: 5,
         //
         browserName: 'chrome'
-    }],
+    }
+    /*,{
+	browserName: 'firefox',
+	acceptSslCerts: true
+    }*/],
     //
     // ===================
     // Test Configurations

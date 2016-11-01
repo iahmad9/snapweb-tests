@@ -6,11 +6,11 @@ var accessControlPage = Object.create(page, {
      */
     token: { get: function () { return browser.element('#token'); } },
     submit_btn: { get: function () { return browser.element('#submit'); } },
-    homepage: { get: function () { return browser.element("//header//div[contains(@class, 'logo')]/a[contains(@href, '/')]"); } },
-    store:     { get: function () { return browser.element("a[href*='store']"); } },
-    login_failed: { get: function () { return browser.element("//*[contains(text(), 'Invalid')]"); } },
+    homepage: { get: function () { return browser.element("header.banner div.logo a[href*='/']"); } },
+    store:     { get: function () { return browser.element("header.banner a[href*=store]"); } },
+    login_failed: { get: function () { return browser.element("label.statusmessage.has-error"); } },
     token_cmd: { get: function () { return browser.element("//*[contains(text(),'sudo snapweb.generate-token')]"); } },
-    bugreport:    { get: function () { return browser.element("//footer//a[contains(@href, 'snappy/+filebug')]"); } },
+    bugreport:    { get: function () { return browser.element("div.b-layout__footer a[href*=bugs]"); } },
 
     /**
      * define or overwrite page methods

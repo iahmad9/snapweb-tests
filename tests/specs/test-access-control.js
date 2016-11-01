@@ -39,7 +39,8 @@ describe('Verify Access Control page', function() {
 	var tokens = ['','a',"'", '#', Array(1024).join('x')];
 
 	tokens.forEach(function(token){
-		verify_invalid_token(token);
+
+	    verify_invalid_token(token);
 	});
 	
     });
@@ -49,9 +50,8 @@ describe('Verify Access Control page', function() {
 
        	accessControlPage.token.setValue(process.env.TOKEN.trim());
         accessControlPage.submit();
-	//expect(accessControlPage.login_failed.getText(), "Login Failed with valid token").to.not.contain('Invalid');
 	loginpage = browser.element('h2=Installed snaps');
-	loginpage.waitForExist(3000);
+	loginpage.waitForVisible();
 	expect(loginpage.getText(), "Login Failed with valid token").to.contain('Installed snaps');
     });
 });
