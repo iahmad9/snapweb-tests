@@ -3,9 +3,10 @@ var expect = require('chai').expect;
 
 accessControlPage = require("../pageobjects/access-control-page.js");
 
-describe('Verify Access Control page', function() {
+describe('Access Control Page - Verify that', function() {
    
     beforeEach(function () {
+	browser.deleteCookie();
 	accessControlPage.open();
 	}); 
 
@@ -54,4 +55,17 @@ describe('Verify Access Control page', function() {
 	loginpage.waitForVisible();
 	expect(loginpage.getText(), "Login Failed with valid token").to.contain('Installed snaps');
     });
+
+   it('until not authenticated, store link will return to access-control page', function() {
+	
+	accessControlPage.store.click();
+	accessControlPage.token.waitForVisible();
+	assert.isNotNull(accessControlPage.token.value);
+
+    });
+
+   it('calling generate-token command should invalidate the previous auth cookie', function() {
+	console.log("ToDo - Regenerat the token and validate that previous auth cookie becomes invalid");
+    });
+
 });
