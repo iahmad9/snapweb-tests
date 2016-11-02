@@ -15,13 +15,18 @@ var accessControlPage = Object.create(page, {
     /**
      * define or overwrite page methods
      */
-    open: { value: function() {
+    open: { value: function () {
+	browser.deleteCookie();
         page.open.call(this, 'access-control');
     } },
 
-    submit: { value: function() {
+    submit_token: { value: function (token_value)  {
+
+        this.token.setValue(token_value);
         this.submit_btn.click();
-    } }
+
+     } }
+
 });
 
 module.exports = accessControlPage

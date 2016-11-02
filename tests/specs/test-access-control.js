@@ -6,20 +6,18 @@ accessControlPage = require("../pageobjects/access-control-page.js");
 describe('Access Control Page - Verify that', function() {
    
     beforeEach(function () {
-	browser.deleteCookie();
 	accessControlPage.open();
 	}); 
 
     afterEach(function () {
 	});
 
-    function verify_invalid_token(token_value)  {
+    /*function submit_token(token_value)  {
  
         accessControlPage.token.setValue(token_value);
         accessControlPage.submit();
-        expect(accessControlPage.login_failed.getText()).to.contain('Invalid');
 	
-	};
+	};*/
  
     it('loads correctly', function () {
 
@@ -37,11 +35,14 @@ describe('Access Control Page - Verify that', function() {
 
     it('rejects invalid tokens', function () {
 
-	var tokens = ['','a',"'", '#', Array(1024).join('x')];
+	var valid_token = process.env.TOKEN.trim();
+	var tokens = ['','a',"'", '#', Array(1024).join('x'),valid_token+"  ", valid_token+"'", valid_token+'#'];
 
 	tokens.forEach(function(token){
+	
+	    accessControlPage.submit_token(token);
+	    expect(accessControlPage.login_failed.getText()).to.contain('Invalid');
 
-	    verify_invalid_token(token);
 	});
 	
     });
@@ -49,11 +50,11 @@ describe('Access Control Page - Verify that', function() {
 
     it('accepts valid token', function () {
 
-       	accessControlPage.token.setValue(process.env.TOKEN.trim());
-        accessControlPage.submit();
+	accessControlPage.submit_token(process.env.TOKEN.trim());
 	loginpage = browser.element('h2=Installed snaps');
 	loginpage.waitForVisible();
 	expect(loginpage.getText(), "Login Failed with valid token").to.contain('Installed snaps');
+
     });
 
    it('until not authenticated, store link will return to access-control page', function() {
@@ -66,6 +67,12 @@ describe('Access Control Page - Verify that', function() {
 
    it('calling generate-token command should invalidate the previous auth cookie', function() {
 	console.log("ToDo - Regenerat the token and validate that previous auth cookie becomes invalid");
+
+    });
+
+   it('once token is accepted, on subsequent page load, it shoud not ask for the token', function() {
+	console.log("ToDo - Once token is accepted, on subsequent time ti should not ask for token");
+
     });
 
 });
